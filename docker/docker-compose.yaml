@@ -1,4 +1,4 @@
-version: '2'
+version: '2.1'
 services:
     postgres:
         restart: always
@@ -7,7 +7,7 @@ services:
             - POSTGRES_USER=postgres
             - POSTGRES_PASSWORD=postgres
         ports:
-            - '5433:54322'
+            - '5433:5432'
     php:
         build: php-fpm
         ports:
