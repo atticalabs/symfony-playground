@@ -9,7 +9,8 @@ use ApiPlatform\Core\Annotation\ApiResource;
  * Class User
  *
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
- * 
+ * @ORM\Entity
+ * @ORM\Table(name="Usuarios")
  * @ApiResource(
  *     itemOperations={"get"}
  * )

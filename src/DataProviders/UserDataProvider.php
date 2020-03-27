@@ -8,6 +8,7 @@ use ApiPlatform\Core\Exception\ResourceClassNotSupportedException;
 use App\Dto\UserDto;
 use App\Query\GetUserQuery;
 use App\Query\GetUserQueryHandler;
+use Exception;
 
 class MobileDeviceDataProvider implements ItemDataProviderInterface
 {
@@ -46,11 +47,11 @@ class MobileDeviceDataProvider implements ItemDataProviderInterface
      */
     public function getItem(string $resourceClass, $id, string $operationName = null, array $context = [])
     {
+        throw new Exception();
         if (!$this->supports($resourceClass, $operationName)) {
             throw new ResourceClassNotSupportedException();
         }
 
-        /** @var \AppBundle\Entity\MobileDevice $mobileDevice */
         $user = $this->getUserQueryHandler->handle(new GetUserQuery($id));
 
         $dtoUser = new UserDto();
