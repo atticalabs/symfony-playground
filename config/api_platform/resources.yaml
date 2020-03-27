@@ -1,0 +1,5 @@
+App\Dto\UserDto:
+  itemOperations:
+    get:
+      method: 'GET'
+      path: '/users/{id}'
