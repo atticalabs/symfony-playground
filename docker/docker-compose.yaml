@@ -9,7 +9,11 @@ services:
         ports:
             - '5433:5432'
     php:
-        build: php-fpm
+        container_name: symfony-playground-be
+        build: 
+            context: php-fpm
+            args:
+                UID: $U_ID
         ports:
             - '9002:9000'
         volumes:
