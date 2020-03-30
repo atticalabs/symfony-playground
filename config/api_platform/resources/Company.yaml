@@ -1,0 +1,44 @@
+App\Entity\Company:
+  attributes:
+      normalization_context:
+        groups: ['company_read']
+  collectionOperations:
+    get:
+      method: 'GET'
+    post:
+      method: 'POST'
+      denormalization_context:
+        groups: ['company_post']
+      swagger_context:
+        parameters:
+          - in: body
+            name: company
+            description: The company to create
+            schema:
+              type: object
+              required:
+                - name
+              properties:
+                name:
+                  type: string
+  itemOperations:
+  get:
+    method: 'GET'
+  put:
+    method: 'PUT'
+    denormalization_context:
+      groups: ['company_put']
+    swagger_context:
+      parameters:
+        - in: body
+          name: company
+          description: The company to update
+          schema:
+            type: object
+            required:
+              - name
+            properties:
+              name:
+                type: string
+  delete:
+    method: 'DELETE'

@@ -17,8 +17,9 @@ services:
         ports:
             - '9002:9000'
         volumes:
-            - ../:/var/www/symfony:cached
-            - ./logs/symfony:/var/www/symfony/var/logs:cached
+            - .././:/appdata/www
+            - ./docker/php/xdebug-linux.ini:/usr/local/etc/php/conf.d/xdebug.ini
+            - ~/.ssh/id_rsa:/home/appuser/.ssh/id_rsa
         links:
             - postgres
     nginx:

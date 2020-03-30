@@ -1,0 +1,50 @@
+App\Entity\Product:
+  attributes:
+      normalization_context:
+        groups: ['product_read']
+  collectionOperations:
+    get:
+      method: 'GET'
+    post:
+      method: 'POST'
+      denormalization_context:
+        groups: ['product_post']
+      swagger_context:
+        parameters:
+          - in: body
+            name: product
+            description: The product to create
+            schema:
+              type: object
+              required:
+                - name
+                - price
+              properties:
+                name:
+                  type: string
+                price:
+                  type: int
+  itemOperations:
+  get:
+    method: 'GET'
+  put:
+    method: 'PUT'
+    denormalization_context:
+      groups: ['product_put']
+    swagger_context:
+      parameters:
+        - in: body
+          name: product
+          description: The product to update
+          schema:
+            type: object
+            required:
+              - name
+              - price
+            properties:
+              name:
+                type: string
+              price:
+                type: int
+  delete:
+    method: 'DELETE'

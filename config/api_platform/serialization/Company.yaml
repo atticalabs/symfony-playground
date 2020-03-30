@@ -1,0 +1,10 @@
+App\Entity\Company:
+  attributes:
+    id:
+      groups: ['company_read']
+    name:
+      groups: ['company_read', 'company_post', 'company_put']
+    createdAt:
+      groups: ['company_read']
+    updatedAt:
+      groups: ['company_read']

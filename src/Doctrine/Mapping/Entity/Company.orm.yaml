@@ -1,0 +1,30 @@
+App\Entity\Company:
+  type: entity
+  table: companies
+
+  id:
+    id:
+      type: string
+
+  # manyToOne:
+  #   owner:
+  #     targetEntity: User
+
+  manyToMany:
+    products:
+      targetEntity: Product
+      mappedBy: companies
+
+  fields:
+    name:
+      type: string
+      nullable: false
+    createdAt:
+      type: datetime
+      nullable: false
+    updatedAt:
+      type: datetime
+      nullable: false
+
+  lifecycleCallbacks:
+    preUpdate: [markAsUpdated]

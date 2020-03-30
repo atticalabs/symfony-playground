@@ -1,0 +1,12 @@
+App\Entity\Product:
+  attributes:
+    id:
+      groups: ['product_read']
+    name:
+      groups: ['product_read', 'product_post', 'product_put']
+    price:
+      groups: ['product_read', 'product_post', 'product_put']
+    createdAt:
+      groups: ['product_read']
+    updatedAt:
+      groups: ['product_read']
