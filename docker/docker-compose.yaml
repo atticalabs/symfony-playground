@@ -1,6 +1,7 @@
 version: '2.1'
 services:
-    postgres:
+    symfony-playground-db:
+        container_name: symfony-playground-db
         restart: always
         image: postgres
         environment:
@@ -8,7 +9,7 @@ services:
             - POSTGRES_PASSWORD=postgres
         ports:
             - '5433:5432'
-    php:
+    symfony-playground-be:
         container_name: symfony-playground-be
         build: 
             context: php-fpm
@@ -20,15 +21,16 @@ services:
             - .././:/appdata/www
             - ./docker/php/xdebug-linux.ini:/usr/local/etc/php/conf.d/xdebug.ini
             - ~/.ssh/id_rsa:/home/appuser/.ssh/id_rsa
-        links:
-            - postgres
-    nginx:
+        depends_on:
+            - symfony-playground-db
+    symfony-playground-web:
         build: nginx
+        container_name: symfony-playground-web
         ports:
             - '8080:80'
-        links:
-            - php
         volumes_from:
-            - php
+            - symfony-playground-be
         volumes:
             - ./logs/nginx/:/var/log/nginx:cached
+        depends_on:
+            - symfony-playground-be
