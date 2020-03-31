@@ -25,8 +25,11 @@ run: ## Start the containers
 # U_ID=${UID} docker-compose -f docker/docker-compose.macos.yml up -d pepe
 # U_ID=${UID} docker-sync start
 # else
-	U_ID=${UID} docker-compose -f docker/docker-compose.yaml up -d
+	U_ID=${UID} docker-compose -f docker/docker-compose.yaml up -d 
 # endif
+
+recreate:
+	U_ID=${UID} docker-compose -f docker/docker-compose.yaml up -d --force-recreate
 
 stop: ## Stop the containers
 # ifeq ($(OS),Darwin)

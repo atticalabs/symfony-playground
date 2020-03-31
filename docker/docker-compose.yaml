@@ -5,10 +5,13 @@ services:
         restart: always
         image: postgres
         environment:
+            - POSTGRES_DB=symfony_playground
             - POSTGRES_USER=postgres
             - POSTGRES_PASSWORD=postgres
         ports:
             - '5433:5432'
+        networks:
+            - ssymfony-playground-network
     symfony-playground-be:
         container_name: symfony-playground-be
         build: 
@@ -23,14 +26,18 @@ services:
             - ~/.ssh/id_rsa:/home/appuser/.ssh/id_rsa
         depends_on:
             - symfony-playground-db
+        networks:
+            - ssymfony-playground-network
     symfony-playground-web:
-        build: nginx
         container_name: symfony-playground-web
+        build: nginx
         ports:
             - '8080:80'
-        volumes_from:
+        depends_on:
             - symfony-playground-be
         volumes:
             - ./logs/nginx/:/var/log/nginx:cached
-        depends_on:
-            - symfony-playground-be
+        networks:
+            - ssymfony-playground-network
+networks:
+  ssymfony-playground-network:
