@@ -55,4 +55,4 @@
 /config/jwt/*.pem
 ###< lexik/jwt-authentication-bundle ###
 
-docker/logs/nginx/
+docker/logs/
