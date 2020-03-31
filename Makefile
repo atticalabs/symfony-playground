@@ -28,7 +28,8 @@ run: ## Start the containers
 	U_ID=${UID} docker-compose -f docker/docker-compose.yaml up -d 
 # endif
 
-recreate:
+recreate: ##Recrea contenedores y levanta DB posrgres si no existe
+	U_ID=${UID} docker-compose -f docker/docker-compose.yaml down
 	U_ID=${UID} docker-compose -f docker/docker-compose.yaml up -d --force-recreate
 
 stop: ## Stop the containers
