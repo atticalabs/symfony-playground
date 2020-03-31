@@ -30,13 +30,17 @@ services:
             - ssymfony-playground-network
     symfony-playground-web:
         container_name: symfony-playground-web
-        build: nginx
+        build:
+            context: nginx
+            args:
+                UID: $U_ID
         ports:
             - '8080:80'
         depends_on:
             - symfony-playground-be
         volumes:
             - ./logs/nginx/:/var/log/nginx:cached
+            - ../public:/appdata/www/public
         networks:
             - ssymfony-playground-network
 networks:
