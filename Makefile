@@ -67,7 +67,10 @@ be-sf-permissions: ## Configure the Symfony permissions
 composer-install: ## Installs composer dependencies
 	U_ID=${UID} docker exec --user ${UID} -it ${DOCKER_BE} composer install --no-scripts --no-interaction --optimize-autoloader
 
-migrations: ## Runs the migrations
+migrations:##
+	U_ID=${UID} docker exec -it --user ${UID} ${DOCKER_BE} php bin/console make:migration
+
+apply-migrations: ## Runs the migrations
 	U_ID=${UID} docker exec -it --user ${UID} ${DOCKER_BE} php bin/console doctrine:migrations:migrate -n
 
 be-logs: ## Tails the Symfony dev log
