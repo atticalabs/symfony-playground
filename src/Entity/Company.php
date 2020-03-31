@@ -25,6 +25,7 @@ class Company
         $this->id = $id ?? Uuid::uuid4()->toString();
         $this->name = $name;
         $this->createdAt = new \DateTime();
+        $this->markAsUpdated();
     }
 
     /**

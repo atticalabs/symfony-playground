@@ -9,14 +9,22 @@ App\Entity\Product:
   manyToMany:
     companies:
       targetEntity: Company
-      mappedBy: products
+      inversedBy: products
+      joinTable:
+        name: company_products
+        joinColumns:
+          product_id:
+            referencedColumnName: id
+        inverseJoinColumns:
+          company_id:
+            referencedColumnName: id
 
   fields:
     name:
       type: string
       nullable: false
     price:
-      type: int
+      type: integer
       nullable: false
     createdAt:
       type: datetime

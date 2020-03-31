@@ -23,7 +23,7 @@ App\Entity\Product:
                 name:
                   type: string
                 price:
-                  type: int
+                  type: integer
   itemOperations:
   get:
     method: 'GET'
@@ -45,6 +45,6 @@ App\Entity\Product:
               name:
                 type: string
               price:
-                type: int
+                type: integer
   delete:
     method: 'DELETE'

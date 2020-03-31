@@ -23,6 +23,15 @@ class Product
     /** @var Collection|Company[] */
     private Collection $companies;
 
+    public function __construct(string $name, int $price, string $id = null)
+    {
+        $this->id = $id ?? Uuid::uuid4()->toString();
+        $this->name = $name;
+        $this->price = $price;
+        $this->createdAt = new \DateTime();
+        $this->markAsUpdated();
+    }
+
     /**
      * Get the value of id
      */ 
