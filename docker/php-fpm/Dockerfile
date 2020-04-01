@@ -22,6 +22,7 @@ RUN apt-get update \
     && docker-php-ext-install pdo pdo_pgsql pgsql \
     && docker-php-ext-install zip xml \
     && pecl install xdebug \
+    && docker-php-ext-enable xdebug\
     && docker-php-ext-enable --ini-name 05-opcache.ini opcache xdebug
 
 # RUN apt-get update \
@@ -45,6 +46,6 @@ RUN mkdir -p /appdata/www
 
 USER appuser
 RUN composer global require "hirak/prestissimo:^0.3" --prefer-dist --no-progress --no-suggest --optimize-autoloader --classmap-authoritative \
-	&& composer clear-cache
+    && composer clear-cache
 
 WORKDIR /appdata/www

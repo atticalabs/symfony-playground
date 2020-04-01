@@ -1,47 +1,49 @@
 version: '2.1'
 services:
-    symfony-playground-db:
-        container_name: symfony-playground-db
-        restart: always
-        image: postgres
-        environment:
-            - POSTGRES_DB=symfony_playground
-            - POSTGRES_USER=postgres
-            - POSTGRES_PASSWORD=postgres
-        ports:
-            - '5433:5432'
-        networks:
-            - ssymfony-playground-network
-    symfony-playground-be:
-        container_name: symfony-playground-be
-        build: 
-            context: php-fpm
-            args:
-                UID: $U_ID
-        ports:
-            - '9002:9000'
-        volumes:
-            - .././:/appdata/www
-            - ./docker/php/xdebug-linux.ini:/usr/local/etc/php/conf.d/xdebug.ini
-            - ~/.ssh/id_rsa:/home/appuser/.ssh/id_rsa
-        depends_on:
-            - symfony-playground-db
-        networks:
-            - ssymfony-playground-network
-    symfony-playground-web:
-        container_name: symfony-playground-web
-        build:
-            context: nginx
-            args:
-                UID: $U_ID
-        ports:
-            - '8080:80'
-        depends_on:
-            - symfony-playground-be
-        volumes:
-            - ./logs/nginx/:/var/log/nginx:cached
-            - ../public:/appdata/www/public
-        networks:
-            - ssymfony-playground-network
+  symfony-playground-db:
+    container_name: symfony-playground-db
+    restart: always
+    image: postgres
+    environment:
+      - POSTGRES_DB=symfony_playground
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - '5433:5432'
+    networks:
+      - ssymfony-playground-network
+  symfony-playground-be:
+    container_name: symfony-playground-be
+    environment:
+      - PHP_EXTENSION_XDEBUG=1
+    build:
+      context: php-fpm
+      args:
+        UID: $U_ID
+    ports:
+      - '9002:9000'
+    volumes:
+      - .././:/appdata/www
+      - ./docker/php/xdebug-linux.ini:/usr/local/etc/php/conf.d/xdebug.ini
+      - ~/.ssh/id_rsa:/home/appuser/.ssh/id_rsa
+    depends_on:
+      - symfony-playground-db
+    networks:
+      - ssymfony-playground-network
+  symfony-playground-web:
+    container_name: symfony-playground-web
+    build:
+      context: nginx
+      args:
+        UID: $U_ID
+    ports:
+      - '8080:80'
+    depends_on:
+      - symfony-playground-be
+    volumes:
+      - ./logs/nginx/:/var/log/nginx:cached
+      - ../public:/appdata/www/public
+    networks:
+      - ssymfony-playground-network
 networks:
   ssymfony-playground-network:

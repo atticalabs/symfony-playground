@@ -55,4 +55,5 @@
 /config/jwt/*.pem
 ###< lexik/jwt-authentication-bundle ###
 
-docker/logs/
+# Docker log files
+docker/logs
