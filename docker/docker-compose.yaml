@@ -1,4 +1,4 @@
-version: '2.1'
+version: '3.0'
 services:
   symfony-playground-db:
     container_name: symfony-playground-db
@@ -11,9 +11,10 @@ services:
     ports:
       - '5433:5432'
     networks:
-      - ssymfony-playground-network
+      - symfony-playground-network
   symfony-playground-be:
     container_name: symfony-playground-be
+    image: be:v1
     environment:
       - PHP_EXTENSION_XDEBUG=1
     build:
@@ -29,7 +30,7 @@ services:
     depends_on:
       - symfony-playground-db
     networks:
-      - ssymfony-playground-network
+      - symfony-playground-network
   symfony-playground-web:
     container_name: symfony-playground-web
     build:
@@ -44,6 +45,6 @@ services:
       - ./logs/nginx/:/var/log/nginx:cached
       - ../public:/appdata/www/public
     networks:
-      - ssymfony-playground-network
+      - symfony-playground-network
 networks:
-  ssymfony-playground-network:
+  symfony-playground-network:
