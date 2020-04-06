@@ -1,4 +1,4 @@
-version: '3.0'
+version: "3.0"
 services:
   symfony-playground-db:
     container_name: symfony-playground-db
@@ -9,7 +9,7 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
     ports:
-      - '5433:5432'
+      - "5433:5432"
     networks:
       - symfony-playground-network
   symfony-playground-be:
@@ -22,7 +22,7 @@ services:
       args:
         UID: $U_ID
     ports:
-      - '9002:9000'
+      - "9002:9000"
     volumes:
       - .././:/appdata/www
       - ./docker/php/xdebug-linux.ini:/usr/local/etc/php/conf.d/xdebug.ini
@@ -33,12 +33,13 @@ services:
       - symfony-playground-network
   symfony-playground-web:
     container_name: symfony-playground-web
+    image: web:v1
     build:
       context: nginx
       args:
         UID: $U_ID
     ports:
-      - '8080:80'
+      - "8080:80"
     depends_on:
       - symfony-playground-be
     volumes:
