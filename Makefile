@@ -61,6 +61,24 @@ prepare: ## Runs backend commands
 	$(MAKE) composer-install
 #	$(MAKE) migrations
 
+#Kubernetes commands
+kubs-up:
+	kubectl apply -f ./kubernetes/local/symfony-playground-db-deployment.yaml 
+	kubectl apply -f ./kubernetes/local/symfony-playground-be-deployment.yaml
+	kubectl apply -f ./kubernetes/local/symfony-playground-web-deployment.yaml 
+	kubectl apply -f ./kubernetes/local/symfony-playground-db-service.yaml 
+	kubectl apply -f ./kubernetes/local/symfony-playground-be-service.yaml 
+	kubectl apply -f ./kubernetes/local/symfony-playground-web-service.yaml
+
+kubs-clear:
+	kubectl delete -f ./kubernetes/local/symfony-playground-db-deployment.yaml 
+	kubectl delete -f ./kubernetes/local/symfony-playground-be-deployment.yaml
+	kubectl delete -f ./kubernetes/local/symfony-playground-web-deployment.yaml 
+	kubectl delete -f ./kubernetes/local/symfony-playground-db-service.yaml 
+	kubectl delete -f ./kubernetes/local/symfony-playground-be-service.yaml 
+	kubectl delete -f ./kubernetes/local/symfony-playground-web-service.yaml
+
+
 # Backend commands
 be-sf-permissions: ## Configure the Symfony permissions
 	U_ID=${UID} docker exec -it -uroot ${DOCKER_BE} sh /usr/bin/sf-permissions
