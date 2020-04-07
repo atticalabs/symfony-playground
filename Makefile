@@ -63,14 +63,14 @@ prepare: ## Runs backend commands
 
 #Kubernetes commands
 kubs-up:
-	kubectl apply -f ./kubernetes/local/symfony-playground-db-deployment.yaml 
+	kubectl apply -f ./kubernetes/local/symfony-playground-db-deployment.yaml
 	kubectl apply -f ./kubernetes/local/symfony-playground-be-deployment.yaml
 	kubectl apply -f ./kubernetes/local/symfony-playground-web-deployment.yaml 
 	kubectl apply -f ./kubernetes/local/symfony-playground-db-service.yaml 
 	kubectl apply -f ./kubernetes/local/symfony-playground-be-service.yaml 
 	kubectl apply -f ./kubernetes/local/symfony-playground-web-service.yaml
 
-kubs-clear:
+kubs-delete:
 	kubectl delete -f ./kubernetes/local/symfony-playground-db-deployment.yaml 
 	kubectl delete -f ./kubernetes/local/symfony-playground-be-deployment.yaml
 	kubectl delete -f ./kubernetes/local/symfony-playground-web-deployment.yaml 
@@ -78,6 +78,8 @@ kubs-clear:
 	kubectl delete -f ./kubernetes/local/symfony-playground-be-service.yaml 
 	kubectl delete -f ./kubernetes/local/symfony-playground-web-service.yaml
 
+kubs-delete-all:
+	kubectl delete services --all && kubectl delete deployments --all && kubectl delete pods --all
 
 # Backend commands
 be-sf-permissions: ## Configure the Symfony permissions

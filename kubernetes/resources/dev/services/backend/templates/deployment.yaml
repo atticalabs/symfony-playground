@@ -1,0 +1,42 @@
+{{- $pod := .Values.pods -}}
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.19.0 (f63a961c)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: {{ $pod.metadata.name }}
+  name: {{ $.Values.pods.metadata.name }}
+spec:
+  replicas: {{ $pod.spec.replicaCount }}
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.19.0 (f63a961c)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: {{ $.Values.pods.metadata.name }}
+    spec:
+      containers:
+        - env:
+            - name: {{ $pod.spec.extensionPhpDebug }}
+              value: {{ $pod.spec.extensionPhpDebugValue }}
+          image: {{ $pod.spec.imageName }}
+          name:  {{ $.Values.pods.metadata.name }}
+          imagePullPolicy: {{ $pod.spec.imagePullPolicy }}
+          ports:
+            - containerPort: {{ $pod.spec.containerPort }}
+          resources: {}
+          volumeMounts:
+            - mountPath:  {{ $pod.spec.volumes.remoteVolume }}
+              name:  {{ $pod.spec.volumes.name }}
+      volumes:
+        - name: {{ $pod.spec.volumes.name }}
+          hostPath:
+            path: {{ $pod.spec.volumes.localVolume }}
+      restartPolicy: {{ $pod.spec.restartPolicy }}
+status: {}

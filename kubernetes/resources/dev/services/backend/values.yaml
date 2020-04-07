@@ -1,0 +1,17 @@
+pods:
+  metadata:
+    name: symfony-playground-be
+  spec:
+    replicaCount: 1
+    extensionPhpDebug: 'PHP_EXTENSION_XDEBUG'
+    extensionPhpDebugValue: '!!str 1'
+    imageName: 'be:v1'
+    imagePullPolicy: 'Never'
+    restartPolicy: 'Always'
+    containerPort: 9000
+    mappedContainerPort: 9002
+    mappedContainerPortName: '!!str 9002'
+    volumes:
+      name: 'soruce-code'
+      remoteVolume: '/appdata/www'
+      localVolume: /d/Development/symfony-playground
