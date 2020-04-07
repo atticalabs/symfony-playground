@@ -1,0 +1,40 @@
+{{- $pod := .Values.pods -}}
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.19.0 (f63a961c)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: {{ $pod.metadata.name }}
+  name: {{ $pod.metadata.name }}
+spec:
+  replicas: {{ $pod.spec.replicaCount }}
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.19.0 (f63a961c)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: {{ $pod.metadata.name }}
+    spec:
+      containers:
+        - image: {{ $pod.spec.imageName }}
+          name: {{ $pod.metadata.name }}
+          imagePullPolicy: {{ $pod.spec.imagePullPolicy }}
+          ports:
+            - containerPort: {{ $pod.spec.containerPort }}
+          resources: {}
+          volumeMounts:
+            - mountPath: {{ $pod.spec.volumes.remoteVolume }}
+              name: {{ $pod.spec.volumes.name }}
+      volumes:
+        - name: {{ $pod.spec.volumes.name }}
+          hostPath:
+            # directory location on host
+            path: {{ $pod.spec.volumes.localVolume }}
+      restartPolicy: {{ $pod.spec.restartPolicy }}
+status: {}

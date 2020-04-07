@@ -63,23 +63,14 @@ prepare: ## Runs backend commands
 
 #Kubernetes commands
 kubs-up:
-	kubectl apply -f ./kubernetes/local/symfony-playground-db-deployment.yaml
-	kubectl apply -f ./kubernetes/local/symfony-playground-be-deployment.yaml
-	kubectl apply -f ./kubernetes/local/symfony-playground-web-deployment.yaml 
-	kubectl apply -f ./kubernetes/local/symfony-playground-db-service.yaml 
-	kubectl apply -f ./kubernetes/local/symfony-playground-be-service.yaml 
-	kubectl apply -f ./kubernetes/local/symfony-playground-web-service.yaml
+	helm install symfony-playground-db ./kubernetes/resources/dev/services/database/
+	helm install symfony-playground-be ./kubernetes/resources/dev/services/backend/
+	helm install symfony-playground-web ./kubernetes/resources/dev/services/web-server/ 
 
 kubs-delete:
-	kubectl delete -f ./kubernetes/local/symfony-playground-db-deployment.yaml 
-	kubectl delete -f ./kubernetes/local/symfony-playground-be-deployment.yaml
-	kubectl delete -f ./kubernetes/local/symfony-playground-web-deployment.yaml 
-	kubectl delete -f ./kubernetes/local/symfony-playground-db-service.yaml 
-	kubectl delete -f ./kubernetes/local/symfony-playground-be-service.yaml 
-	kubectl delete -f ./kubernetes/local/symfony-playground-web-service.yaml
-
-kubs-delete-all:
-	kubectl delete services --all && kubectl delete deployments --all && kubectl delete pods --all
+	helm uninstall symfony-playground-web
+	helm uninstall symfony-playground-be
+	helm uninstall symfony-playground-db
 
 # Backend commands
 be-sf-permissions: ## Configure the Symfony permissions

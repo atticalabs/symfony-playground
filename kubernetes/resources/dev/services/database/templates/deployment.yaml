@@ -1,0 +1,39 @@
+{{- $pod := .Values.pods -}}
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.19.0 (f63a961c)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: {{ $pod.metadata.name }}
+  name: {{ $pod.metadata.name }}
+spec:
+  replicas: {{ $pod.spec.replicaCount }}
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.19.0 (f63a961c)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: {{ $pod.metadata.name }}
+    spec:
+      containers:
+        - env:
+            - name: {{ $pod.spec.envDataBaseName }}
+              value: {{ $pod.spec.envDataBaseNameValue }}
+            - name: {{ $pod.spec.envDataBasePassword }}
+              value: {{ $pod.spec.envDataBasePasswordValue }}
+            - name: {{ $pod.spec.envDataBaseUser }}
+              value: {{ $pod.spec.envDataBaseUserValue }}
+          image: {{ $pod.spec.imageName }}
+          name: {{ $pod.metadata.name }}
+          imagePullPolicy: {{ $pod.spec.imagePullPolicy }}
+          ports:
+            - containerPort: {{ $pod.spec.containerPort }}
+          resources: {}
+      restartPolicy: {{ $pod.spec.restartPolicy }}
+status: {}

@@ -1,0 +1,17 @@
+pods:
+  metadata:
+    name: symfony-playground-db
+  spec:
+    replicaCount: 1
+    imageName: 'postgres'
+    imagePullPolicy: 'Never'
+    restartPolicy: 'Always'
+    containerPort: 5432
+    mappedContainerPort: 5433
+    mappedContainerPortName: '!!str 5433'
+    envDataBaseName: POSTGRES_DB
+    envDataBaseNameValue: symfony_playground
+    envDataBasePassword: POSTGRES_PASSWORD
+    envDataBasePasswordValue: postgres
+    envDataBaseUser: POSTGRES_USER
+    envDataBaseUserValue: postgres

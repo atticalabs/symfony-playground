@@ -1,0 +1,20 @@
+{{- $pod := .Values.pods -}}
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.19.0 (f63a961c)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: {{ $pod.metadata.name }}
+  name: {{ $pod.metadata.name }}
+spec:
+  ports:
+    - name: {{ $pod.spec.mappedContainerPortName }}
+      port: {{ $pod.spec.mappedContainerPort }}
+      targetPort: {{ $pod.spec.containerPort }}
+  selector:
+    io.kompose.service: {{ $pod.metadata.name }}
+status:
+  loadBalancer: {}

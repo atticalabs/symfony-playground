@@ -1,0 +1,16 @@
+pods:
+  metadata:
+    name: symfony-playground-web
+  spec:
+    replicaCount: 1
+    imageName: 'web:v1'
+    imagePullPolicy: 'Never'
+    restartPolicy: 'Always'
+    containerPort: 80
+    mappedContainerPort: 8080
+    serviceType: 'NodePort'
+    mappedContainerPortName: '!!str 8080'
+    volumes:
+      name: 'web-proxy'
+      remoteVolume: '/appdata/www/public'
+      localVolume: /d/Development/symfony-playground/public
