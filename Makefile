@@ -66,6 +66,8 @@ kubs-up:
 	helm install symfony-playground-db ./kubernetes/resources/dev/services/database/
 	helm install symfony-playground-be ./kubernetes/resources/dev/services/backend/
 	helm install symfony-playground-web ./kubernetes/resources/dev/services/web-server/ 
+	#The following command displays the port where the svc is accessible
+	kubectl get services/symfony-playground-web -o custom-columns=EXTERNAL_PORT:.spec.ports[0].nodePort
 
 kubs-delete:
 	helm uninstall symfony-playground-web
