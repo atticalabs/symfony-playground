@@ -14,4 +14,4 @@ pods:
     volumes:
       name: 'soruce-code'
       remoteVolume: '/appdata/www'
-      localVolume: /d/Development/symfony-playground
+      localVolume: /c/Users/Usuario/source/repos/symfony-playground

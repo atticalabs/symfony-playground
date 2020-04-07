@@ -1,5 +1,5 @@
 echo \#\#\#Setting up enviroment\#\#\#
-cd ../../../../ #Moving to root folder of project
+
 #Getting absolute path of root
 export WORK_DIR=$(pwd)
 #Directory name where public web server is located
@@ -12,6 +12,9 @@ export BE_VALUE_TO_PUT="$PREFIX: $WORK_DIR"
 export WEB_VALUE_TO_PUT="$PREFIX: $PUBLIC_DIR" 
 #Finding the lines thats start with the provided key name
 export PATTERN_TO_REPLACE="$PREFIX:.*" 
+
+echo ========================
+echo ${WORK_DIR}
 
 #To validate the values to use in the transaction
 echo Seetting up backend services

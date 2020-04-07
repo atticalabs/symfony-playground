@@ -12,9 +12,9 @@ kubetl describe pods
 #2) scheduled the application to run on that Node
 #3) configured the cluster to reschedule the instance on a new Node when needed
 kubectl create deployment kubernetes-bootcamp --image=gcr.io/google-samples/kubernetes-bootcamp:v1
-
-#List deployments
 kubectl get deployments
+kubectl delete deployment kubernetes-bootcamp
+
 
 #Proxy
 #The kubectl command can create a proxy that will forward communications into the cluster-wide, private network
@@ -91,3 +91,19 @@ kubectl scale deployments/kubernetes-bootcamp --replicas=4
 #Update an application
 #To update the image of the application to version 2, use the set image command, followed by the deployment name and the new #image version:
 kubectl set image deployments/kubernetes-bootcamp kubernetes-bootcamp=jocatalin/kubernetes-bootcamp:v2
+
+
+
+
+
+
+
+
+kubectl create deployment backend-deployment --image=be:v1
+kubectl expose deployment/backend-deployment --type="NodePort" --port 9000
+export NODE_PORT=$(kubectl get services/backend-deployment -o go-template='{{(index .spec.ports 0).nodePort}}')
+
+curl 10.103.54.153:$NODE_PORT/api/v1/products?page=1 -H "accept: application/ld+json"
+
+
+curl 10.103.54.153/api/v1/products?page=1 -H "accept: application/ld+json":$NODE_PORT

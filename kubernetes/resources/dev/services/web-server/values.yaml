@@ -13,4 +13,4 @@ pods:
     volumes:
       name: 'web-proxy'
       remoteVolume: '/appdata/www/public'
-      localVolume: /d/Development/symfony-playground/public
+      localVolume: /c/Users/Usuario/source/repos/symfony-playground/public
